@@ -1,0 +1,42 @@
+# Microsoft Security DevOps (MSDO) integrates static analysis tools into the development cycle.
+# https://github.com/microsoft/security-devops-action
+# https://learn.microsoft.com/en-au/azure/defender-for-cloud/github-action
+
+name: MSDO
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  schedule:
+    - cron: '45 16 * * 5'
+
+permissions:
+  contents: read
+  id-token: write
+  actions: read
+  security-events: write
+
+jobs:
+  MSDO:
+    name: Microsoft Security DevOps
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v6
+
+    - uses: actions/setup-dotnet@v5
+      with:
+        dotnet-version: |
+          8.0.x
+          9.0.x
+
+    - name: Run Microsoft Security DevOps
+      uses: microsoft/security-devops-action@v1
+      id: msdo
+
+    - name: Upload results to Security tab
+      uses: github/codeql-action/upload-sarif@v4
+      with:
+        sarif_file: ${{ steps.msdo.outputs.sarifFile }}

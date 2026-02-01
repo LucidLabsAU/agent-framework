@@ -3,6 +3,10 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "resolutions": {
+    "tar": "^6.2.1",
+    "js-yaml": "^4.1.0"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
