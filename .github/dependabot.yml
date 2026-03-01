@@ -24,6 +24,12 @@ updates:
       - ".NET"
       - "dependencies"
 
+    groups:
+      all-minor-patch:
+        update-types:
+          - 'minor'
+          - 'patch'
+
   # Maintain dependencies for python
   - package-ecosystem: "pip"
     directory: "python/"
@@ -41,6 +47,12 @@ updates:
     labels:
       - "python"
       - "dependencies"
+
+    groups:
+      all-minor-patch:
+        update-types:
+          - 'minor'
+          - 'patch'
 
   # Maintain dependencies for github-actions
   - package-ecosystem: "github-actions"
