@@ -16,5 +16,13 @@ WORKDIR /app
 # Copy everything needed to run the app from the "build" stage.
 COPY --from=build /app .
 
+RUN addgroup --system appgroup && adduser --system --ingroup appgroup appuser
+
 EXPOSE 8088
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+    CMD wget --no-verbose --tries=1 --spider http://localhost:8088/ || exit 1
+
+USER appuser
+
 ENTRYPOINT ["dotnet", "AgentWithHostedMCP.dll"]

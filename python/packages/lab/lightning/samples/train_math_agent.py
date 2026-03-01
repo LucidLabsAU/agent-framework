@@ -95,7 +95,8 @@ def _scalar_are_results_same(pred_result: str, true_result: str, rel_tol: float)
         true_float = _float_eval(true_result)
         return math.isclose(pred_float, true_float, rel_tol=rel_tol)
     except Exception:  # noqa: S110
-        pass
+        # Float conversion failed, fall through to string comparison
+        return False
 
     return False
 

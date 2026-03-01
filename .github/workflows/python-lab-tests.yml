@@ -11,6 +11,9 @@ on:
   schedule:
     - cron: "0 0 * * *" # Run at midnight UTC daily
 
+permissions:
+  contents: read
+
 env:
   # Configure a constant location for the uv cache
   UV_CACHE_DIR: /tmp/.uv-cache

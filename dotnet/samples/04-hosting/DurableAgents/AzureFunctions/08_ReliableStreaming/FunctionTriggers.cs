@@ -155,10 +155,14 @@ public sealed class FunctionTriggers
         // Get the cursor from query string (optional)
         string? cursor = request.Query["cursor"].FirstOrDefault();
 
+        // Sanitize user-provided values before logging to prevent log forging
+        string sanitizedConversationId = conversationId.Replace("\n", "").Replace("\r", "");
+        string sanitizedCursor = (cursor ?? "(beginning)").Replace("\n", "").Replace("\r", "");
+
         this._logger.LogInformation(
             "Resuming stream for conversation {ConversationId} from cursor: {Cursor}",
-            conversationId,
-            cursor ?? "(beginning)");
+            sanitizedConversationId,
+            sanitizedCursor);
 
         // Check Accept header to determine response format
         // text/plain = raw text output (ideal for terminals)

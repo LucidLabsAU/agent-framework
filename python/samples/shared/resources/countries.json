@@ -34,6 +34,7 @@
               "application/json": {
                 "schema": {
                   "type": "array",
+                  "maxItems": 250,
                   "items": {
                     "type": "object",
                     "properties": {
@@ -49,6 +50,7 @@
                       "subregion": {"type": "string"},
                       "capital": {
                         "type": "array",
+                        "maxItems": 10,
                         "items": {"type": "string"}
                       },
                       "currencies": {
@@ -67,6 +69,7 @@
                       },
                       "latlng": {
                         "type": "array",
+                        "maxItems": 2,
                         "items": {"type": "number"}
                       }
                     }
@@ -75,7 +78,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "apiKey": []
+          }
+        ]
       }
     },
     "/name/{name}": {
@@ -101,6 +109,7 @@
               "application/json": {
                 "schema": {
                   "type": "array",
+                  "maxItems": 250,
                   "items": {
                     "type": "object",
                     "properties": {
@@ -116,6 +125,7 @@
                       "subregion": {"type": "string"},
                       "capital": {
                         "type": "array",
+                        "maxItems": 10,
                         "items": {"type": "string"}
                       },
                       "currencies": {
@@ -134,7 +144,26 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "apiKey": []
+          }
+        ]
+      }
+    }
+  },
+  "security": [
+    {
+      "apiKey": []
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "apiKey": {
+        "type": "apiKey",
+        "name": "X-API-Key",
+        "in": "header"
       }
     }
   }
