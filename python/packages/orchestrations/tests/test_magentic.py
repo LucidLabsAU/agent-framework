@@ -1,5 +1,6 @@
 # Copyright (c) Microsoft. All rights reserved.
 
+import logging
 import sys
 from collections.abc import AsyncIterable, Awaitable, Sequence
 from dataclasses import dataclass
@@ -35,6 +36,8 @@ from agent_framework.orchestrations import (
     MagenticProgressLedgerItem,
     StandardMagenticManager,
 )
+
+logger = logging.getLogger(__name__)
 
 if sys.version_info >= (3, 12):
     from typing import override  # type: ignore # pragma: no cover
@@ -112,7 +115,7 @@ class FakeManager(MagenticManagerBase):
                     plan = Message.from_dict(plan_payload)
                     self.task_ledger = _SimpleLedger(facts=facts, plan=plan)
                 except Exception:  # pragma: no cover - defensive
-                    pass
+                    logger.debug("Failed to parse task ledger from metadata")
 
     async def plan(self, magentic_context: MagenticContext) -> Message:
         facts = Message("assistant", ["GIVEN OR VERIFIED FACTS\n- A\n"])

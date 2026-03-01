@@ -1,6 +1,7 @@
 # Copyright (c) Microsoft. All rights reserved.
 
 import json
+import logging
 import os
 from pathlib import Path
 from typing import Annotated, Any
@@ -1651,9 +1652,9 @@ async def test_azure_ai_chat_client_agent_file_search():
                 await client.agents_client.vector_stores.delete(vector_store.id)
             if file:
                 await client.agents_client.files.delete(file.id)
-        except Exception:
-            # Ignore cleanup errors to avoid masking the actual test failure
-            pass
+        except Exception as cleanup_err:
+            # Log but ignore cleanup errors to avoid masking the actual test failure
+            logging.getLogger(__name__).debug("Cleanup error (ignored): %s", cleanup_err)
         finally:
             await client.close()
 

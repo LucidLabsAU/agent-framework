@@ -41,11 +41,28 @@
             "description": "Location not found"
           }
         },
-        "deprecated": false
+        "deprecated": false,
+        "security": [
+          {
+            "apiKey": []
+          }
+        ]
       }
     }
   },
   "components": {
-    "schemas": {}
-  }
+    "schemas": {},
+    "securitySchemes": {
+      "apiKey": {
+        "type": "apiKey",
+        "name": "X-API-Key",
+        "in": "header"
+      }
+    }
+  },
+  "security": [
+    {
+      "apiKey": []
+    }
+  ]
 }

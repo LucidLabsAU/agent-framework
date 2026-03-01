@@ -508,8 +508,9 @@ class SerializationMixin:
                     for param_name, param_value in dep_value.items():
                         if param_name not in cls.INJECTABLE:
                             logger.debug(
-                                f"Dependency '{param_name}' for type '{type_id}' is not in INJECTABLE set. "
-                                f"Available injectable parameters: {cls.INJECTABLE}"
+                                "Dependency '%s' for type '%s' is not in INJECTABLE set. "
+                                "Available injectable parameters: %s",
+                                param_name, type_id, cls.INJECTABLE,
                             )
                         # Handle nested dict parameters
                         if (
@@ -524,8 +525,9 @@ class SerializationMixin:
                 # Regular parameter dependency
                 if dep_key not in cls.INJECTABLE:
                     logger.debug(
-                        f"Dependency '{dep_key}' for type '{type_id}' is not in INJECTABLE set. "
-                        f"Available injectable parameters: {cls.INJECTABLE}"
+                        "Dependency '%s' for type '%s' is not in INJECTABLE set. "
+                        "Available injectable parameters: %s",
+                        dep_key, type_id, cls.INJECTABLE,
                     )
                 # Handle dict parameters - merge if both are dicts
                 if isinstance(dep_value, dict) and dep_key in kwargs and isinstance(kwargs[dep_key], dict):

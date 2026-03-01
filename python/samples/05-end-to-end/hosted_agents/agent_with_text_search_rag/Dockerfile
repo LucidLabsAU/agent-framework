@@ -11,6 +11,13 @@ RUN if [ -f requirements.txt ]; then \
         echo "No requirements.txt found"; \
     fi
 
+RUN addgroup --system appgroup && adduser --system --ingroup appgroup appuser
+
 EXPOSE 8088
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+    CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8088/')" || exit 1
+
+USER appuser
 
 CMD ["python", "main.py"]

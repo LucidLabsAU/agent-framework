@@ -5,6 +5,10 @@ on:
     branches: ["main", "feature*"]
     paths:
       - "python/**"
+
+permissions:
+  contents: read
+
 env:
   # Configure a constant location for the uv cache
   UV_CACHE_DIR: /tmp/.uv-cache
@@ -22,7 +26,7 @@ jobs:
     env:
       UV_PYTHON: ${{ matrix.python-version }}
     permissions:
-      contents: write
+      contents: read
     defaults:
       run:
         working-directory: python
